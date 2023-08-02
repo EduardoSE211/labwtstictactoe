@@ -1,0 +1,33 @@
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+    width: 300px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    cursor: pointer;
+    
+        }
+
+
+.tell {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    cursor: pointer;
+    
+        }
+    
