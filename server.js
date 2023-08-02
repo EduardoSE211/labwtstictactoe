@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 //das Verzeichnis "files" und seine Dateien über den Webserver hosten
-const publicPath = path.join(__dirname,'/../public');
+const publicPath = path.join(__dirname,'public');
 var directory = express.static(publicPath); 
 app.use(directory); 
 
