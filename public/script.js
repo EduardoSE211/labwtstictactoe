@@ -120,6 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
 }); 
 
+//
+//
+
 let socket = io();
     //test
     playbutton = document.getElementById('playButton')
@@ -245,7 +248,6 @@ sendBtn.addEventListener('click', () => {
 
 
 //
-//Socket
 //
 
 

@@ -46,18 +46,18 @@ io.on('connection', (socket) => {
     io.to(data.roomId).emit("EndGame", data.Symbol);
   });
 
-  socket.on("New Game", (roomId) => {
-    console.log(roomId);
-    io.to(roomId.roomId).emit("Making a New Board");
+  socket.on("New Game", (data) => {
+    console.log(data.roomId);
+    io.to(data.roomId).emit("Making a New Board");
   });
 
-  socket.on("Players Drew", (roomId) => {
-    io.to(roomId.roomId).emit("Telling everyone that they drew");
+  socket.on("Players Drew", (data) => {
+    io.to(data.roomId).emit("Telling everyone that they drew");
   });
 
-  socket.on("I want a new Score", (roomId) => {
-    console.log(roomId.roomId);
-    io.to(roomId).emit("Players want a new score");
+  socket.on("I want a new Score", (data) => {
+    console.log(data.roomId);
+    io.to(data.roomId).emit("Players want a new score");
   });
 
 
