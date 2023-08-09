@@ -40,17 +40,18 @@ var tictactoebrett = {
                     console.log(this.currentPlayer);
                     socket.emit("NewSymbol", {
                         "Symbol" : this.currentPlayer,
-                        "cell" : cell.id
-                    
+                        "cell" : cell.id,
+                        roomId: currentRoomId
+                        
                     });
                     cell.textContent = this.currentPlayer;
                     cell.classList.add(this.currentPlayer);
 
                     if (this.checkWin(this.currentPlayer)) {
-                        socket.emit("PlayerWon", {"Symbol": this.currentPlayer});
+                        socket.emit("PlayerWon", {"Symbol": this.currentPlayer, roomId: currentRoomId});
                         
                     } else if (this.checkDraw()) {
-                        socket.emit("Players Drew");
+                        socket.emit("Players Drew", { roomId: currentRoomId});
                         
                         //this.updateScore('');
                     } else {
@@ -84,7 +85,8 @@ var tictactoebrett = {
     "Restart" : function() {
         this.restartButton.addEventListener('click', () => {
         if (this.gameWon === true) {
-            socket.emit("New Game")
+            socket.emit("New Game", { roomId: currentRoomId})
+            console.log(currentRoomId)
         }
     });
     },
@@ -106,7 +108,7 @@ var tictactoebrett = {
     // Update score
     "NewScore" : function() {
         this.RestartScoreButton.addEventListener('click', () => {
-            socket.emit("I want a new Score");
+            socket.emit("I want a new Score", { roomId: currentRoomId});
             
     }
 )}
@@ -136,11 +138,6 @@ let socket = io();
         });
 
 
-    //After 2 players when someone goes into the server is send to another page
-    socket.on("Exit game" , () => {
-        location.href = "http://www.w3schools.com"; // Neu html mit warte screen!!
-    });
-
     //Givs the second player the O symbol
     socket.on("change symbol" , () => {
         tictactoebrett.currentPlayer = 'O';
@@ -166,6 +163,7 @@ let socket = io();
 
 
     socket.on("Making a New Board", () => {
+        alert("Newgame")
         for (let i = 0; i < 9; i++) {
             NewCell = document.getElementById(i.toString())
             NewCell.textContent = '';
@@ -202,3 +200,99 @@ let socket = io();
         tictactoebrett.scoreElement.textContent = `X Wins: ${tictactoebrett.wins} | O Wins: ${tictactoebrett.losses} | Draws: ${tictactoebrett.draws}`;
         alert('New Score');
     });
+    
+
+
+    //
+//Chat
+//
+
+const divRName = document.getElementById('DivRoomName');
+const divJoinR = document.getElementById('DivRoomJoin')
+const createRoomBtn = document.getElementById('createRoomBtn');
+const joinRoomBtn = document.getElementById('joinRoomBtn');
+const roomInfo = document.getElementById('roomInfo');
+const roomName = document.getElementById('roomName');
+const chatInput = document.getElementById('chatInput');
+const sendBtn = document.getElementById('sendBtn');
+
+let currentRoomId = null;
+let PlayerName = '';
+
+createRoomBtn.addEventListener('click', () => {
+  const roomNameInput = document.getElementById('roomNameInput');
+  const name = roomNameInput.value;
+  if (name) {
+    socket.emit('createRoom', name);
+  }
+});
+
+joinRoomBtn.addEventListener('click', () => {
+  const roomIdInput = document.getElementById('roomIdInput');
+  const roomId = roomIdInput.value;
+  if (roomId) {
+    socket.emit('joinRoom', roomId);
+  }
+});
+
+sendBtn.addEventListener('click', () => {
+  const message = chatInput.value;
+  if (message) {
+    socket.emit('chatMessage', { roomId: currentRoomId, message, PlayerName});
+    chatInput.value = '';
+  }
+});
+
+
+//
+//Socket
+//
+
+
+
+
+socket.on('roomalreadyExists', () => {
+  alert('try again');
+});
+
+socket.on('roomCreated', ({ roomId, roomName}) => {
+  PlayerName = "Player 1";
+
+  roomInfo.style.display = 'block';
+  currentRoomId = roomId;
+  roomName.innerText = `Room: ${roomName}`;
+  alert(roomId + ' Room was created ');
+  alert(PlayerName + " Welcome")
+  divRName.style.display = "none";
+  divJoinR.style.display = "none";
+});
+
+socket.on('roomJoined', ({ roomId, roomName}) => {
+  PlayerName = "Player 2";
+  roomInfo.style.display = 'block';
+  currentRoomId = roomId;
+  roomName.innerText = `Room: ${roomName}`;
+  divRName.style.display = "none";
+  divJoinR.style.display = "none";
+  alert("Welcome "+ PlayerName);
+});
+
+socket.on('roomNotFound', () => {
+  alert('Room not found!');
+});
+
+socket.on('chatMessage', ({ message, sender}) => {
+  const chatDiv = document.createElement('div');
+  chatDiv.innerText = `${sender}: ${message}`;
+  document.body.appendChild(chatDiv);
+});
+
+socket.on('roomFull', () => {
+  alert('Room is full. Cannot join.');
+});
+
+socket.on('roomClosed', () => {
+  // Handle the room being closed (e.g., display a message or redirect to the main page)
+  alert('The room has been closed.');
+  window.location.reload(); // Reload the page to go back to the main page
+});

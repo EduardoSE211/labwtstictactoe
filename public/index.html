@@ -11,6 +11,27 @@
   <button id="restartButton">Restart</button>
   <button id="RestartScoreButton">New Score</button>
   <div id="score">X Wins: 0 | O Wins: 0 | Draws: 0</div>
+
+
+  <h2>Chat</h2>
+
+  <div id="DivRoomName">
+    <input type="text" id="roomNameInput" placeholder="Enter room name">
+    <button id="createRoomBtn">Create Room</button>
+  </div>
+
+  <div id="DivRoomJoin">
+    <input type="text" id="roomIdInput" placeholder="Enter room ID">
+    <button id="joinRoomBtn">Join Room</button>
+  </div>
+
+  <div id="roomInfo" style="display: none;">
+    <h2 id="roomName"></h2>
+    <input type="text" id="chatInput" placeholder="Type your message...">
+    <button id="sendBtn">Send</button>
+  </div>
+
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
   
