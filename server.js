@@ -72,8 +72,8 @@ io.on('connection', (socket) => {
     const roomId = roomName;
     if (rooms.has(roomId)){
       socket.emit('roomalreadyExists');
-    }
-    else {
+      return
+    } else {
       rooms.set(roomId, { name: roomName, users: [socket.id] });
       socket.join(roomId);
       socket.emit('roomCreated', { roomId, roomName});
@@ -96,7 +96,7 @@ io.on('connection', (socket) => {
     socket.join(roomId);
     room.users.push(socket.id);
     socket.emit('roomJoined', { roomId, roomName: room.name});
-    io.emit("StartGame");
+    io.to(roomId).emit("StartGame");
     socket.emit("change symbol");
     console.log(room)
 
