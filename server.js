@@ -52,7 +52,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on("Players Drew", (data) => {
-    io.to(data.roomId).emit("Telling everyone that they drew");
+    io.to(data.roomId).emit("Telling everyone that they drew", false);
   });
 
   socket.on("I want a new Score", (data) => {

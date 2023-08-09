@@ -187,8 +187,9 @@ let socket = io();
     });
 
 
-    socket.on("Telling everyone that they drew", () => {
+    socket.on("Telling everyone that they drew", (data) => {
         tictactoebrett.gameWon = true;
+        tictactoebrett.updateScore(data);
         alert('It\'s a draw!');
     });
 
