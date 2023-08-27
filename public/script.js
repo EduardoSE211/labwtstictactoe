@@ -259,7 +259,7 @@ socket.on('roomalreadyExists', () => {
 });
 
 socket.on('roomCreated', ({ roomId, roomName}) => {
-  PlayerName = "Player 1";
+  PlayerName = "Red Player";
 
   roomInfo.style.display = 'block';
   currentRoomId = roomId;
@@ -271,7 +271,7 @@ socket.on('roomCreated', ({ roomId, roomName}) => {
 });
 
 socket.on('roomJoined', ({ roomId, roomName}) => {
-  PlayerName = "Player 2";
+  PlayerName = "Blue Player";
   roomInfo.style.display = 'block';
   currentRoomId = roomId;
   roomName.innerText = `Room: ${roomName}`;
@@ -285,9 +285,10 @@ socket.on('roomNotFound', () => {
 });
 
 socket.on('chatMessage', ({ message, sender}) => {
+  const ChatDivElement = document.getElementById("roomInfo");
   const chatDiv = document.createElement('div');
   chatDiv.innerText = `${sender}: ${message}`;
-  document.body.appendChild(chatDiv);
+  ChatDivElement.appendChild(chatDiv);
 });
 
 socket.on('roomFull', () => {
