@@ -4,8 +4,18 @@
   <link rel="stylesheet" href="style.css">
   <title>Tic Tac Toe</title>
 </head>
+
 <body>
-  <h1>Tic Tac Toe</h1>
+<div class="container-field">
+
+<header>
+  <h1 class="header1">Tic Tac Toe</h1>
+</header>
+
+<div class="image-container">
+  <img src="banana-happy.gif" alt="Dancing Banana GIF">
+</div>
+
   <div class="board"></div>
   <!-- <button id="playButton">PLAY</button> -->
   <button id="restartButton">Restart</button>
@@ -13,7 +23,7 @@
   <div id="score">X Wins: 0 | O Wins: 0 | Draws: 0</div>
 
 
-  <h2>Chat</h2>
+  <h2 class="header2">Chat</h2>
 
   <div id="DivRoomName">
     <input type="text" id="roomNameInput" placeholder="Enter room name">
@@ -34,6 +44,7 @@
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
-  
+
+</div>
 </body>
 </html>

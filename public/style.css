@@ -1,9 +1,79 @@
 
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: lightgray;
+
+}
+
+.header1 {
+    text-align: center; 
+    margin: 0 auto;     
+    padding: 5px; 
+    font-size: 70px;     
+    background-color: transparent; 
+    animation: flicker 1s infinite;
+    background: linear-gradient(45deg, #ff0000, #ff9900, #00ff00, #0000ff, #9900ff, #ff00ff);
+    background-size: 600% 600%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rainbow 5s linear infinite alternate;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px; 
+    
+}
+
+.image-container img {
+    max-width: 50px;
+    max-height: 50px;
+    width: auto; 
+    height: auto;
+}
+
+
+@keyframes rainbow {
+    0%, 100% {
+        background-position: 0 0;
+    }
+    25% {
+        background-position: 100% 0;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 0 100%;
+    }
+}
+
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+
 .board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
     width: 300px;
+    padding: 20px;
+    border: 5px solid black;
 }
 
 .cell {
@@ -14,20 +84,28 @@
     justify-content: center;
     align-items: center;
     font-size: 48px;
-    cursor: pointer;
-    
+    cursor: pointer; 
         }
 
 
 .tell {
     width: 100px;
     height: 100px;
-    background-color: red;
+    background-color: burlywood;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 48px;
     cursor: pointer;
-    
+
         }
+
+.tell:hover {
+    transform: scale(1.1);
+}
+
+.cell:hover {
+    transform: scale(1.1);
+}
+
     

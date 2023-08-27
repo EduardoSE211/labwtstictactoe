@@ -299,3 +299,5 @@ socket.on('roomClosed', () => {
   alert('The room has been closed.');
   window.location.reload(); // Reload the page to go back to the main page
 });
+
+
