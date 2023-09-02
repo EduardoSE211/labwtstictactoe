@@ -115,7 +115,7 @@ var tictactoebrett = {
 }
     
 document.addEventListener('DOMContentLoaded', () => {
-    tictactoebrett.TicTacToe('tell');
+    tictactoebrett.TicTacToe('cellRed');
     
         
 }); 
@@ -145,7 +145,7 @@ let socket = io();
     socket.on("change symbol" , () => {
         tictactoebrett.currentPlayer = 'O';
         for (let i = 0; i < 9; i++) {
-            document.getElementById(i.toString()).className = "cell"
+            document.getElementById(i.toString()).className = "cellBlue"
         }
         tictactoebrett.Yourturn = false;
         //tictactoebrett.twoplayers = true;

@@ -76,7 +76,7 @@ body{
     border: 5px solid black;
 }
 
-.cell {
+.cellBlue {
     width: 100px;
     height: 100px;
     background-color: blue;
@@ -88,7 +88,7 @@ body{
         }
 
 
-.tell {
+.cellRed {
     width: 100px;
     height: 100px;
     background-color: red;
