@@ -100,11 +100,11 @@ body{
 
         }
 
-.cellBlue:hover {
+.tell:hover {
     transform: scale(1.1);
 }
 
-.cellRed:hover {
+.cell:hover {
     transform: scale(1.1);
 }
 
