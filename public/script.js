@@ -54,11 +54,12 @@ var tictactoebrett = {
                         socket.emit("Players Drew", { roomId: currentRoomId});
                         
                         //this.updateScore('');
-                    } else {
+                        //USED FOR 2 player TIC TAC TOE same server to change from player X to player O
+                    }// else {
                         //var currentsymbol =  tictactoebrett.currentPlayer === 'X' ? 'O' : 'X';
                         
                         //tictactoebrett.currentPlayer = currentsymbol ;
-                    }               
+                    //}               
                 }
             });
             },
