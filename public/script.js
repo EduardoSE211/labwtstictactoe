@@ -59,7 +59,7 @@ var tictactoebrett = {
             },
 
     //Win
-    "checkWin" : function(p) {
+    "checkWin" : function(mark) {
         
         // Winning combinations
         const winningCombinations = [
@@ -69,7 +69,7 @@ var tictactoebrett = {
         ];
 
         return winningCombinations.some(combination =>
-            combination.every(index => this.cells[index].classList.contains(p))
+            combination.every(index => this.cells[index].classList.contains(mark))
         );
     },
 
@@ -88,10 +88,10 @@ var tictactoebrett = {
     },
 
     // Update score
-    "updateScore" : function(p) {
-        if (p === 'X') {
+    "updateScore" : function(mark) {
+        if (mark === 'X') {
             this.wins++;
-        } else if (p === 'O') {
+        } else if (mark === 'O') {
             this.losses++; 
         } else {
             this.draws++;
