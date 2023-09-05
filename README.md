@@ -15,3 +15,7 @@ The name of the room can be any combination of symbols, it only must be unique, 
 PlayerRed starts and when a game ends the player who had the last turn will have the second turn if the users want to start a new game.
 
 There is also a chat function where the 2 players can chat with each other.
+
+
+Extern host link:
+https://labwtstictactoe.azurewebsites.net/
