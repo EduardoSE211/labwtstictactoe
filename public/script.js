@@ -4,7 +4,7 @@ var tictactoebrett = {
 
     "board" : document.querySelector('.board'),
     "cells" : [],
-    "currentPlayer" : 'X',
+    "Player" : 'X',
     "gameWon" : false,
     "Yourturn" : true,
     "twoplayers" : false,
@@ -37,44 +37,39 @@ var tictactoebrett = {
     "Game" : function(cell){
             cell.addEventListener('click', () => {
                 if (!this.gameWon && !cell.textContent && this.Yourturn && this.twoplayers) {
-                    console.log(this.currentPlayer);
+                    console.log(this.Player);
                     socket.emit("NewSymbol", {
-                        "Symbol" : this.currentPlayer,
+                        "Symbol" : this.Player,
                         "cell" : cell.id,
                         roomId: currentRoomId
                         
                     });
-                    cell.textContent = this.currentPlayer;
-                    cell.classList.add(this.currentPlayer);
+                    cell.textContent = this.Player;
+                    cell.classList.add(this.Player);
 
-                    if (this.checkWin(this.currentPlayer)) {
-                        socket.emit("PlayerWon", {"Symbol": this.currentPlayer, roomId: currentRoomId});
+                    if (this.checkWin(this.Player)) {
+                        socket.emit("PlayerWon", {"Symbol": this.Player, roomId: currentRoomId});
                         
                     } else if (this.checkDraw()) {
                         socket.emit("Players Drew", { roomId: currentRoomId});
                         
-                        //this.updateScore('');
-                        //USED FOR 2 player TIC TAC TOE same server to change from player X to player O
-                    }// else {
-                        //var currentsymbol =  tictactoebrett.currentPlayer === 'X' ? 'O' : 'X';
-                        
-                        //tictactoebrett.currentPlayer = currentsymbol ;
-                    //}               
+                    }            
                 }
             });
             },
 
-    // Check if the player has won
-    "checkWin" : function(player) {
+    //Win
+    "checkWin" : function(p) {
+        
         // Winning combinations
         const winningCombinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [0, 4, 8], [2, 4, 6]             
         ];
 
         return winningCombinations.some(combination =>
-            combination.every(index => this.cells[index].classList.contains(player))
+            combination.every(index => this.cells[index].classList.contains(p))
         );
     },
 
@@ -93,10 +88,10 @@ var tictactoebrett = {
     },
 
     // Update score
-    "updateScore" : function(player) {
-        if (player === 'X') {
+    "updateScore" : function(p) {
+        if (p === 'X') {
             this.wins++;
-        } else if (player === 'O') {
+        } else if (p === 'O') {
             this.losses++; 
         } else {
             this.draws++;
@@ -144,7 +139,7 @@ let socket = io();
 
     //Givs the second player the O symbol
     socket.on("change symbol" , () => {
-        tictactoebrett.currentPlayer = 'O';
+        tictactoebrett.Player = 'O';
         for (let i = 0; i < 9; i++) {
             document.getElementById(i.toString()).className = "cellBlue"
         }
@@ -156,7 +151,7 @@ let socket = io();
     socket.on("Change player turn", (data) => {
         tictactoebrett.Yourturn = !tictactoebrett.Yourturn;
         console.log(data);
-        console.log(tictactoebrett.currentPlayer);
+        console.log(tictactoebrett.Player);
     });
 
 
@@ -191,7 +186,7 @@ let socket = io();
     socket.on("Telling everyone that they drew", (data) => {
         tictactoebrett.gameWon = true;
         tictactoebrett.updateScore(data);
-        alert('It\'s a draw!');
+        alert('Draw!');
     });
 
     socket.on("Players want a new score", () => {
