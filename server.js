@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     console.log(data);
     console.log({Symbol, cell});
     io.to(roomId).emit("Player input", {Symbol, cell});
-    io.to(roomId).emit("warten", Symbol);
+    io.to(roomId).emit("Change player turn", Symbol);
   });
   
   //Tells everyone tha Game is over

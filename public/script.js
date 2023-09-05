@@ -32,7 +32,7 @@ var tictactoebrett = {
             cell.id = i;
         }
     },
-    //"WaitingOtherPlayerTurn" : function(),
+    
     
     "Game" : function(cell){
             cell.addEventListener('click', () => {
@@ -153,7 +153,7 @@ let socket = io();
     });
 
 
-    socket.on("warten", (data) => {
+    socket.on("Change player turn", (data) => {
         tictactoebrett.Yourturn = !tictactoebrett.Yourturn;
         console.log(data);
         console.log(tictactoebrett.currentPlayer);
